@@ -36,7 +36,10 @@ Function Start-Runbook
         $RunbookName
     )
 
-    $JobGuid = Start-SmaRunbook -Name $RunbookName -WebserviceEndpoint $global:SmaWebserviceEndpoint
+    if ($global:RestrictedRunbooks -notcontains $RunbookName)
+    {
+        $JobGuid = Start-SmaRunbook -Name $RunbookName -WebserviceEndpoint $global:SmaWebserviceEndpoint
+    }
 
     return $JobGuid
 }
